@@ -36,17 +36,18 @@ app.post('/api/courses', (req, res) => {
         .required()
     });*/
     
-  if (error) {
+  /*if (error) {
     // 400 Bad request 
     res.status(400).send(error.details[0].message);
     //res.status(400).send(result.error);
     return;
-  }
+  }*/
     
-    const result = schema.validate(req.body);
-    console.log(result);
+  //  const result = schema.validate(req.body);
+  //  console.log(result);
+  const { error } = validateCourse(req.body); // = result.error  
     
-  if (result.error) {
+  if (error) {
     // 400 Bad request 
     res.status(400).send(result.error.details[0].message);
     //res.status(400).send(result.error);
@@ -106,7 +107,7 @@ app.get('/api/courses/:id', (req, res) => {
     res.send(course);
 });
 
-app.delete('/api/courses/:id', (req, res =>) {
+app.delete('/api/courses/:id', (req, res) => {
   // Look up the course
   // Not existing, return 404
   const course = courses.find(c => c.id === parseInt(req.params.id));
