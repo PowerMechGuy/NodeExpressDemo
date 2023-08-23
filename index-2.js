@@ -1,29 +1,8 @@
-const morgan = require('morgan');
-const helmet = require('helmet');
 const Joi = require('joi');
-const logger = require('./logger');
-const authenticator = require('./authenticator');
 const express = require('express');
 const app = express();
 
-console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
-console.log(`app: ${app.get('env')}`);
-
-app.use(express.json()); // req.body
-//app.use(express.urlencoded()); // key=value&key=value -> req.body
-app.use(express.urlencoded({ extended: true })); // key=value&key=value -> req.body
-app.use(express.static('public'));
-app.use(helmet());
-if (app.get('env') === 'development') {
-    app.use(morgan('dev'));
-    //app.use(morgan('combined'));
-    //app.use(morgan('tiny'));
-    console.log('Morgan enabled...');
-}
-
-app.use(logger);
-
-//app.use(authenticator);
+app.use(express.json());
 
 // app.get() --> Get Data
 // app.post() --> Create Data
